@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Jakarta Sans", "sans-serif";
+
+  --color-main-purple: #635Fc7;
+  --color-main-purple-light: #A8A4FF;
+  --color-main-black: #000112;
+  --color-main-very-dark-grey: #20212C;
+  --color-main-dark-grey: #2B2C37;
+  --color-main-lines: #3E3F4E;
+  --color-main-medium-grey: #828FA3;
+  --color-main-light-grey: #E4EBFA;
+  --color-main-white: #F4F7FD;
+  --color-white: #FFFFFF;
+  --color-error-red: #EA5555;
+  --color-error-red-light: #ff9898;
+}
