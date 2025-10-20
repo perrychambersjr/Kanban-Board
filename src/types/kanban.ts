@@ -27,3 +27,10 @@ export interface Board {
     name: string,
     columns: Column[];
 }
+
+export interface BoardContextType {
+    boards: Board[];
+    activeBoardId: string | null;
+    setActiveBoard: (id: string) => void;
+    addBoard: (name: string) => void;
+}

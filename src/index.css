@@ -1,18 +1,19 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Jakarta Sans", "sans-serif";
+  --font-display: "Jakarta Sans", sans-serif;
 
-  --color-main-purple: #635Fc7;
-  --color-main-purple-light: #A8A4FF;
-  --color-main-black: #000112;
-  --color-main-very-dark-grey: #20212C;
-  --color-main-dark-grey: #2B2C37;
-  --color-main-lines: #3E3F4E;
-  --color-main-medium-grey: #828FA3;
-  --color-main-light-grey: #E4EBFA;
-  --color-main-white: #F4F7FD;
-  --color-white: #FFFFFF;
-  --color-error-red: #EA5555;
-  --color-error-red-light: #ff9898;
+  --color-main-purple: rgba(99, 95, 199, 1);           /* #635Fc7 */
+  --color-main-purple-light: rgba(168, 164, 255, 1);   /* #A8A4FF */
+  --color-main-black: rgba(0, 1, 18, 1);               /* #000112 */
+  --color-main-very-dark-grey: rgba(32, 33, 44, 1);    /* #20212C */
+  --color-main-dark-grey: rgba(43, 44, 55, 1);         /* #2B2C37 */
+  --color-main-lines: rgba(62, 63, 78, 1);             /* #3E3F4E */
+  --color-main-medium-grey: rgba(130, 143, 163, 1);    /* #828FA3 */
+  --color-main-light-grey: rgba(228, 235, 250, 1);     /* #E4EBFA */
+  --color-main-white: rgba(244, 247, 253, 1);          /* #F4F7FD */
+  --color-white: rgba(255, 255, 255, 1);               /* #FFFFFF */
+  --color-error-red: rgba(234, 85, 85, 1);             /* #EA5555 */
+  --color-error-red-light: rgba(255, 152, 152, 1);     /* #ff9898 */
 }
