@@ -2,12 +2,7 @@ import { useBoards } from '../../../hooks/useBoards';
 import BoardListItem from './BoardListItem';
 
 const BoardList = () => {
-<<<<<<< HEAD
   const { boards, activeBoardId } = useBoards();
-=======
-  const { boards, activeBoardId} = useBoards();
->>>>>>> 05ba77195d75f7393d2339438ead288c67290bf0
-  
   
   return (
     <div>
