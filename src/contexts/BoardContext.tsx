@@ -35,13 +35,13 @@ export function BoardProvider({children} : {children: ReactNode}) {
     setActiveBoardId(id);
   });
 
-  const getActiveBoard = ((id: string) => {
+  const getBoardById = ((id: string) => {
     return boards.find(board => board.id === id);
   });
 
   return (
     <BoardContext.Provider
-      value={{ boards, activeBoardId, setActiveBoard, addBoard, getActiveBoard }}
+      value={{ boards, activeBoardId, setActiveBoard, addBoard, getBoardById }}
     >
       {children}
     </BoardContext.Provider>

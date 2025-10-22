@@ -33,8 +33,5 @@ export interface BoardContextType {
     activeBoardId: string | null;
     setActiveBoard: (id: string) => void;
     addBoard: (name: string) => void;
-<<<<<<< HEAD
-    getActiveBoard: (name: string) => Board | undefined;
-=======
->>>>>>> 05ba77195d75f7393d2339438ead288c67290bf0
+    getBoardById: (name: string) => Board | undefined;
 }
