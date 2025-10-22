@@ -35,6 +35,7 @@ export function BoardProvider({children} : {children: ReactNode}) {
     setActiveBoardId(id);
   });
 
+<<<<<<< HEAD
   const getActiveBoard = ((id: string) => {
     return boards.find(board => board.id === id);
   });
@@ -42,6 +43,11 @@ export function BoardProvider({children} : {children: ReactNode}) {
   return (
     <BoardContext.Provider
       value={{ boards, activeBoardId, setActiveBoard, addBoard, getActiveBoard }}
+=======
+  return (
+    <BoardContext.Provider
+      value={{ boards, activeBoardId, setActiveBoard, addBoard }}
+>>>>>>> 05ba77195d75f7393d2339438ead288c67290bf0
     >
       {children}
     </BoardContext.Provider>

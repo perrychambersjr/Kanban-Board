@@ -1,6 +1,6 @@
+import BoardIcon from '../../../../public/assets/icon-board.svg';
 import { useBoards } from '../../../hooks/useBoards';
 import { Board } from '../../../types/kanban';
-import BoardIcon from '/assets/icon-board.svg';
 
 interface Props {
     board: Board;
