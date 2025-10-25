@@ -1,0 +1,51 @@
+TODO:
+Core board interactivity
+    - add new column
+    - add new task
+Task-level interactivity  
+    - click task:
+        - open modal showing full details
+        - allow editing or deleting of task
+Subtask completion toggles
+    in task modal:
+        - render checklist of subtasks
+        - allow toggling each isCompleted
+        - update that task's subtasks in context
+Move task between columns (status change)
+    inside task modal (or via drag and drop later)
+        - changing the "status" should move the task to corresponding column
+    if not doing drag and drop yet, let user pick a column from dropdown and update
+
+Advanced enhancements
+    - drag and drop (react DnD or drag-drop-context)
+    Allow users to:
+        - drag tasks between columns
+        - drag to reorder tasks
+    - Persist data
+        - use localstorage to persist boards
+        - API
+    - Edit and Delete Boards/columns
+        - add dropdowns or context menus
+        - allow renaming or deleting columns/boards
+
+Stretch Goals:
+    - sorting & filtering
+        - subtask completion
+        - due date
+        - priority
+    - filtering
+        - show only tasks assigned to user (if you add assignees)
+        - show only incomplete tasks
+    - Animations and transitions
+        - smoothly animate tasks moving between columns
+        - animate modal open/close
+        - highlight column when dragging over it
+    - task stats/progress visualization
+        - progress bars showing subtasks completed
+        - color-coded columns
+    - Board management
+        - rename boards
+        - archive or delete boards
+        - favorite/start a board for quick access
+    - Import/Export
+    - User Profiles / Multi-board

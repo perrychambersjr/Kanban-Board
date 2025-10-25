@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useEffectEvent, useState } from "react";
 import { fetchBoards } from "../services/api/boards";
-import { Board, BoardContextType } from "../types/kanban";
+import { Board, BoardContextType, Task } from "../types/kanban";
 
 export const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
@@ -31,6 +31,29 @@ export function BoardProvider({children} : {children: ReactNode}) {
     setActiveBoardId(newBoard.id);
   });
 
+  const addTask = (boardId: string, columnId: string, newTask: Task) => {
+    setBoards((prevBoards) =>
+      prevBoards.map((board) => {
+        if (board.id !== boardId) return board;
+
+        return {
+          ...board,
+          columns: board.columns.map((col) => {
+            if (col.id !== columnId) return col;
+
+            return {
+              ...col,
+              tasks: [
+                ...col.tasks,
+                { ...newTask, id: crypto.randomUUID() } // generate a unique ID
+              ],
+            };
+          }),
+        };
+      })
+    );
+  };
+
   const setActiveBoard = useEffectEvent((id: string) => {
     setActiveBoardId(id);
   });
@@ -39,9 +62,13 @@ export function BoardProvider({children} : {children: ReactNode}) {
     return boards.find(board => board.id === id);
   });
 
+  const getBoardColumns = ((id: string) => {
+    return boards.find(board => board.id === id)?.columns || [];
+  })
+
   return (
     <BoardContext.Provider
-      value={{ boards, activeBoardId, setActiveBoard, addBoard, getBoardById }}
+      value={{ boards, activeBoardId, setActiveBoard, addBoard, getBoardById, getBoardColumns, addTask }}
     >
       {children}
     </BoardContext.Provider>

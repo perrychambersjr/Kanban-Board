@@ -33,5 +33,7 @@ export interface BoardContextType {
     activeBoardId: string | null;
     setActiveBoard: (id: string) => void;
     addBoard: (name: string) => void;
+    addTask: (boardId: string, columnId: string, newTask: Task) => void;
     getBoardById: (name: string) => Board | undefined;
+    getBoardColumns: (id: string) => Column[];
 }

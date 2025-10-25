@@ -8,11 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-<<<<<<< HEAD
     "server": "json-server --watch src/services/api/data.json --port 4000"
-=======
-    "start:json-server": "json-server --watch src/services/api/data.json --port 4000"
->>>>>>> 05ba77195d75f7393d2339438ead288c67290bf0
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
