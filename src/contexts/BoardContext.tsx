@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useEffect, useEffectEvent, useState } from "react";
-import { fetchBoards } from "../services/api/boards";
-import { Board, BoardContextType, Task } from "../types/kanban";
+import { act, createContext, ReactNode, useEffect, useEffectEvent, useState } from "react";
+import { fetchBoards, saveBoard } from "../services/api/boards";
+import { Board, BoardContextType, Subtask, Task } from "../types/kanban";
 
 export const BoardContext = createContext<BoardContextType | undefined>(undefined);
 
@@ -14,6 +14,7 @@ export function BoardProvider({children} : {children: ReactNode}) {
       try {
         const initialBoards = await fetchBoards();
         setBoards(initialBoards);
+        normalizeBoards(initialBoards);
         if (initialBoards.length > 0) {
           setActiveBoardId(initialBoards[0].id);
         }
@@ -25,34 +26,48 @@ export function BoardProvider({children} : {children: ReactNode}) {
     loadBoards();
   }, []);
 
+  
+  const normalizeBoards = (boards: Board[]): Board[] => {
+  return boards.map(board => ({
+    ...board,
+    id: board.id ?? crypto.randomUUID(),
+    columns: board.columns.map(col => ({
+      ...col,
+      id: col.id ?? crypto.randomUUID(),
+      tasks: col.tasks.map(task => ({
+        ...task,
+        id: task.id ?? crypto.randomUUID(),
+        subtasks: task.subtasks.map(sub => ({
+          ...sub,
+          id: sub.id ?? crypto.randomUUID(),
+        })) as Subtask[],
+      })) as Task[],
+    })),
+  })) as Board[];
+  };
+
   const addBoard = useEffectEvent((name: string) => {
     const newBoard: Board = { id: crypto.randomUUID(), name, columns: [] };
     setBoards(prev => [...prev, newBoard]);
     setActiveBoardId(newBoard.id);
   });
 
-  const addTask = (boardId: string, columnId: string, newTask: Task) => {
-    setBoards((prevBoards) =>
-      prevBoards.map((board) => {
-        if (board.id !== boardId) return board;
-
-        return {
+  const addTask = (columnId: string, newTask: Task) => {
+    setBoards(prevBoards => 
+      prevBoards.map(board =>
+        board.id === activeBoardId
+        ? {
           ...board,
-          columns: board.columns.map((col) => {
-            if (col.id !== columnId) return col;
+          columns: board.columns.map(column => 
+            column.id === columnId
+            ? { ...column, tasks: [...column.tasks, newTask]}
+            : column
+          )
+        } : board
+      )
+    )
 
-            return {
-              ...col,
-              tasks: [
-                ...col.tasks,
-                { ...newTask, id: crypto.randomUUID() } // generate a unique ID
-              ],
-            };
-          }),
-        };
-      })
-    );
-  };
+  }
 
   const setActiveBoard = useEffectEvent((id: string) => {
     setActiveBoardId(id);
@@ -63,7 +78,7 @@ export function BoardProvider({children} : {children: ReactNode}) {
   });
 
   const getBoardColumns = ((id: string) => {
-    return boards.find(board => board.id === id)?.columns || [];
+    return boards.find(board => board.id === id)?.columns;
   })
 
   return (

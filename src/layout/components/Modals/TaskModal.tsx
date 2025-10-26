@@ -5,7 +5,7 @@ import Modal from './Modal';
 interface TaskModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (data: Task) => void;
+    onSubmit: (data: Task, columnId: string) => void;
     initialData?: {id: string, title: string; description: string, status: string, subtasks: Subtask[] };
     mode: "add" | "edit";
     columns: { id: string, name: string}[];
@@ -21,7 +21,7 @@ const TaskModal = ({
 }: TaskModalProps ) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState(columns[0]?.id ?? "");
+  const [status, setStatus] = useState(columns[0]?.name ?? "");
   const [subtasks, setSubtasks] = useState<Subtask[]>([{id: crypto.randomUUID(), title: "", isCompleted: false }]);
 
   useEffect(() => {
@@ -41,15 +41,28 @@ const TaskModal = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const selectedColumn = columns.find(col => col.name === status);
+    
+    if (!selectedColumn) {
+        console.error("Selected column not found for status:", status);
+        return;
+    }
+
+    if (!status) {
+        alert("Please select a status.");
+    return;
+    } 
+
     const task: Task = {
         id: initialData?.id ?? crypto.randomUUID(),
         title,
         description,
-        status,
+        status: selectedColumn.name,
         subtasks
     }
 
-    onSubmit(task);
+    console.log(task);
+    onSubmit(task, selectedColumn.id);
     onClose();
   }
 
@@ -125,11 +138,15 @@ const TaskModal = ({
                 <label className="text-sml dark:text-white text-gray-400">Status</label>  
                 <select 
                     value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={(e) => {setStatus(e.target.value);}}
+                    disabled={columns.length === 0}
                     className="border border-[var(--color-main-medium-grey)] rounded-md p-2"
                 >
+                <option value="" disabled>
+                    Select status...
+                </option>
                 {columns.map((col) => (
-                    <option key={col.id} value={col.id} className="bg-[var(--color-main-dark-grey)] text-white">
+                    <option key={col.id} value={col.name} className="bg-[var(--color-main-dark-grey)] text-white">
                         {col.name}
                     </option>
                 ))}

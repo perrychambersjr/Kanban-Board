@@ -10,10 +10,9 @@ const Topbar = () => {
 
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
-  const handleAddTask = (data: Task) => {
-    console.log("New task data:", data);
-
-    addTask(activeBoardId!, data.status, data);
+  const handleAddTask = (data: Task, columnId: string) => {
+    if(!activeBoard) return;
+    addTask(columnId, data);
   }
 
   return (
