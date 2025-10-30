@@ -8,7 +8,7 @@
           "tasks": [
             {
               "title": "Build UI for onboarding flow",
-              "description": "",
+              "description": "we know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
               "status": "Todo",
               "subtasks": [
                 {
@@ -65,6 +65,13 @@
                   "isCompleted": false
                 }
               ]
+            },
+            {
+              "id": "2d33b4a8-bed0-4a17-bec6-78728ec5d5ad",
+              "title": "yrdy",
+              "description": "sdh",
+              "status": "Todo",
+              "subtasks": []
             }
           ]
         },
@@ -176,6 +183,13 @@
                   "isCompleted": false
                 }
               ]
+            },
+            {
+              "id": "2d33b4a8-bed0-4a17-bec6-78728ec5d5ad",
+              "title": "yrdy",
+              "description": "sdh",
+              "status": "Todo",
+              "subtasks": []
             }
           ]
         },
@@ -278,10 +292,18 @@
                   "isCompleted": true
                 }
               ]
+            },
+            {
+              "id": "2d33b4a8-bed0-4a17-bec6-78728ec5d5ad",
+              "title": "yrdy",
+              "description": "sdh",
+              "status": "Todo",
+              "subtasks": []
             }
           ]
         }
-      ]
+      ],
+      "id": "06d9"
     },
     {
       "name": "Marketing Plan",
@@ -372,7 +394,8 @@
           "name": "Done",
           "tasks": []
         }
-      ]
+      ],
+      "id": "a659"
     },
     {
       "name": "Roadmap",
@@ -424,7 +447,8 @@
           "name": "Later",
           "tasks": []
         }
-      ]
+      ],
+      "id": "7f52"
     }
   ]
 }

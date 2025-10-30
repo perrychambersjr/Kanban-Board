@@ -1,5 +1,5 @@
-import { act, createContext, ReactNode, useEffect, useEffectEvent, useState } from "react";
-import { fetchBoards, saveBoard } from "../services/api/boards";
+import { createContext, ReactNode, useEffect, useEffectEvent, useState } from "react";
+import { addTask as addTaskAPI, fetchBoards } from "../services/api/boards";
 import { Board, BoardContextType, Subtask, Task } from "../types/kanban";
 
 export const BoardContext = createContext<BoardContextType | undefined>(undefined);
@@ -7,6 +7,8 @@ export const BoardContext = createContext<BoardContextType | undefined>(undefine
 export function BoardProvider({children} : {children: ReactNode}) {
   const [boards, setBoards] = useState<Board[]>([]);
   const [activeBoardId, setActiveBoardId] = useState<string | null>(null);
+
+  const activeBoard = boards.find(b => b.id === activeBoardId) || null;
 
   // Prepopulate boards from API on mount
   useEffect(() => {
@@ -52,7 +54,9 @@ export function BoardProvider({children} : {children: ReactNode}) {
     setActiveBoardId(newBoard.id);
   });
 
-  const addTask = (columnId: string, newTask: Task) => {
+  const addTask = async (columnId: string, newTask: Task) => {
+    if (!activeBoard) return;
+
     setBoards(prevBoards => 
       prevBoards.map(board =>
         board.id === activeBoardId
@@ -67,6 +71,13 @@ export function BoardProvider({children} : {children: ReactNode}) {
       )
     )
 
+    if (activeBoardId) {
+      try  {
+        await addTaskAPI(activeBoard, columnId, newTask);
+      } catch (err) {
+        console.error("Failed to save task: ", err);
+      }
+    }
   }
 
   const setActiveBoard = useEffectEvent((id: string) => {
@@ -83,7 +94,7 @@ export function BoardProvider({children} : {children: ReactNode}) {
 
   return (
     <BoardContext.Provider
-      value={{ boards, activeBoardId, setActiveBoard, addBoard, getBoardById, getBoardColumns, addTask }}
+      value={{ boards, activeBoardId, activeBoard, setActiveBoard, addBoard, getBoardById, getBoardColumns, addTask }}
     >
       {children}
     </BoardContext.Provider>

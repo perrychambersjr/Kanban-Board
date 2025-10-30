@@ -58,6 +58,7 @@ export interface RawBoard {
 export interface BoardContextType {
     boards: Board[];
     activeBoardId: string | null;
+    activeBoard: Board | null;
     setActiveBoard: (id: string) => void;
     addBoard: (name: string) => void;
     addTask: (columnId: string, newTask: Task) => void;
